@@ -24367,6 +24367,7 @@ GameObject:
   - component: {fileID: 2035111235}
   - component: {fileID: 2035111234}
   - component: {fileID: 2035111237}
+  - component: {fileID: 2035111238}
   m_Layer: 9
   m_Name: Directional Light Sun
   m_TagString: Untagged
@@ -24573,6 +24574,102 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!114 &2035111238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035111233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: effff934078e48b468de9840b7c86bce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exposedObject: {fileID: 2035111234}
+  prefix: a0acb0f5-2fb5-4d32-94ec-7472a21c422a
+  fields:
+  - exposed: 0
+    fieldName: Type
+    groupName: 
+  - exposed: 0
+    fieldName: Shape
+    groupName: 
+  - exposed: 1
+    fieldName: Color
+    groupName: 
+  - exposed: 1
+    fieldName: Intensity
+    groupName: 
+  - exposed: 0
+    fieldName: Range
+    groupName: 
+  - exposed: 0
+    fieldName: Spot Angle
+    groupName: 
+  - exposed: 0
+    fieldName: Inner Spot Angle
+    groupName: 
+  - exposed: 0
+    fieldName: Cookie Size
+    groupName: 
+  - exposed: 0
+    fieldName: Shadows
+    groupName: 
+  - exposed: 0
+    fieldName: Cookie
+    groupName: 
+  - exposed: 0
+    fieldName: Draw Halo
+    groupName: 
+  - exposed: 0
+    fieldName: Baking Output
+    groupName: 
+  - exposed: 0
+    fieldName: Flare
+    groupName: 
+  - exposed: 0
+    fieldName: Render Mode
+    groupName: 
+  - exposed: 0
+    fieldName: Culling Mask
+    groupName: 
+  - exposed: 0
+    fieldName: Rendering Layer Mask
+    groupName: 
+  - exposed: 0
+    fieldName: Lightmapping
+    groupName: 
+  - exposed: 0
+    fieldName: Light Shadow Caster Mode
+    groupName: 
+  - exposed: 0
+    fieldName: Area Size
+    groupName: 
+  - exposed: 0
+    fieldName: Bounce Intensity
+    groupName: 
+  - exposed: 0
+    fieldName: Color Temperature
+    groupName: 
+  - exposed: 0
+    fieldName: Use Color Temperature
+    groupName: 
+  - exposed: 0
+    fieldName: Bounding Sphere Override
+    groupName: 
+  - exposed: 0
+    fieldName: Use Bounding Sphere Override
+    groupName: 
+  - exposed: 0
+    fieldName: Use View Frustum For Shadow Caster Cull
+    groupName: 
+  - exposed: 0
+    fieldName: Shadow Radius
+    groupName: 
+  - exposed: 0
+    fieldName: Shadow Angle
+    groupName: 
 --- !u!1001 &2041309359
 PrefabInstance:
   m_ObjectHideFlags: 0
