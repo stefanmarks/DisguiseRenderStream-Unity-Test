@@ -7238,18 +7238,18 @@ MonoBehaviour:
   exposedObject: {fileID: 665312255}
   prefix: Sphere
   fields:
-  - exposed: 1
+  - exposed: 0
     fieldName: Transform
     groupName: 
   - exposed: 0
     fieldName: Local Rotation
     groupName: 
-  - exposed: 0
+  - exposed: 1
     fieldName: Local Position
-    groupName: 
-  - exposed: 0
+    groupName: Movable Objects
+  - exposed: 1
     fieldName: Local Scale
-    groupName: 
+    groupName: Movable Objects
   - exposed: 0
     fieldName: Constrain Proportions Scale
     groupName: 
@@ -24732,12 +24732,12 @@ MonoBehaviour:
   - exposed: 0
     fieldName: Shape
     groupName: 
-  - exposed: 1
+  - exposed: 0
     fieldName: Color
     groupName: 
   - exposed: 1
     fieldName: Intensity
-    groupName: 
+    groupName: Light
   - exposed: 0
     fieldName: Range
     groupName: 
@@ -24786,9 +24786,9 @@ MonoBehaviour:
   - exposed: 0
     fieldName: Bounce Intensity
     groupName: 
-  - exposed: 0
+  - exposed: 1
     fieldName: Color Temperature
-    groupName: 
+    groupName: Light
   - exposed: 0
     fieldName: Use Color Temperature
     groupName: 
@@ -24827,7 +24827,7 @@ MonoBehaviour:
     groupName: 
   - exposed: 1
     fieldName: Local Rotation
-    groupName: 
+    groupName: Light
   - exposed: 0
     fieldName: Local Position
     groupName: 
