@@ -4,7 +4,7 @@
 QualitySettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_CurrentQuality: 3
+  m_CurrentQuality: 1
   m_QualitySettings:
   - serializedVersion: 3
     name: Ray Tracing (Realtime GI)
@@ -257,5 +257,5 @@ QualitySettings:
     GameCoreXboxOne: 3
     PS4: 3
     PS5: 2
-    Server: 3
-    Standalone: 3
+    Server: 0
+    Standalone: 0
