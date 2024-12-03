@@ -6017,7 +6017,7 @@ Transform:
   m_Children:
   - {fileID: 665312255}
   - {fileID: 541503050}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1417562852}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &509313091
 GameObject:
@@ -6353,9 +6353,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541503049}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6, y: 3.4, z: 2}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2, y: 0.1, z: 6}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.49999988}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 500261989}
@@ -7409,8 +7409,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665312254}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6, y: 4, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.70000005, z: 6}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7487,7 +7487,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cf59b8132f6cd2f49b8924afeed7674b, type: 2}
+  - {fileID: 2100000, guid: 8803ecc3c0ada6f48bbd21e716f8522b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15170,7 +15170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1417562852}
   m_Layer: 0
-  m_Name: CameraOffset
+  m_Name: WorldOffset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15190,6 +15190,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1925257057}
+  - {fileID: 500261989}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1425786419
@@ -23051,12 +23052,12 @@ MonoBehaviour:
   - exposed: 1
     fieldName: Aperture
     groupName: Camera
-  - exposed: 1
+  - exposed: 0
     fieldName: Focus Distance
-    groupName: Camera
-  - exposed: 1
+    groupName: 
+  - exposed: 0
     fieldName: Focal Length
-    groupName: Camera
+    groupName: 
   - exposed: 0
     fieldName: Blade Count
     groupName: 
@@ -24839,8 +24840,8 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 100000
-  m_Range: 10
-  m_SpotAngle: 30
+  m_Range: 100
+  m_SpotAngle: 72.3
   m_InnerSpotAngle: 21.802082
   m_CookieSize: 10
   m_Shadows:
@@ -24896,13 +24897,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2035111233}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.14845246, y: -0.55403227, z: 0.7912402, w: -0.21201211}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1377783}
-  m_LocalEulerAnglesHint: {x: 70, y: 0, z: 210}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &2035111237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24918,7 +24919,7 @@ MonoBehaviour:
   m_Intensity: 100000
   m_EnableSpotReflector: 0
   m_LuxAtDistance: 1
-  m_InnerSpotPercent: 0
+  m_InnerSpotPercent: 57.4
   m_SpotIESCutoffPercent: 100
   m_LightDimmer: 1
   m_VolumetricDimmer: 1
@@ -28839,4 +28840,3 @@ SceneRoots:
   - {fileID: 1766869843}
   - {fileID: 1046469887}
   - {fileID: 1417562852}
-  - {fileID: 500261989}
