@@ -5986,6 +5986,39 @@ MonoBehaviour:
   m_Size: {x: 6, y: 6, z: 0.5}
   m_FadeFactor: 0.7
   m_Version: 3
+--- !u!1 &500261988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 500261989}
+  m_Layer: 0
+  m_Name: Dynamic Objects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &500261989
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500261988}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 665312255}
+  - {fileID: 541503050}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &509313091
 GameObject:
   m_ObjectHideFlags: 0
@@ -6290,6 +6323,166 @@ MonoBehaviour:
   m_Size: {x: 8, y: 8, z: 2}
   m_FadeFactor: 0.18
   m_Version: 3
+--- !u!1 &541503049
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 541503050}
+  - component: {fileID: 541503057}
+  - component: {fileID: 541503056}
+  - component: {fileID: 541503055}
+  - component: {fileID: 541503052}
+  - component: {fileID: 541503053}
+  - component: {fileID: 541503058}
+  m_Layer: 0
+  m_Name: Animated Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &541503050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541503049}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6, y: 3.4, z: 2}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 500261989}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &541503052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541503049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c678255e62ce6f443814563a9c82a9ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!320 &541503053
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541503049}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 662c840acae947d4e83d0f2d95fd621e, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 1
+  m_DirectorUpdateMode: 3
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: -2869196130980863246, guid: 662c840acae947d4e83d0f2d95fd621e, type: 2}
+    value: {fileID: 541503058}
+  m_ExposedReferences:
+    m_References: []
+--- !u!135 &541503055
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541503049}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &541503056
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541503049}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: cf59b8132f6cd2f49b8924afeed7674b, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &541503057
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541503049}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &541503058
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541503049}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6292ed73b5560824fa05082cfb02ca35, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &553408022
 GameObject:
   m_ObjectHideFlags: 0
@@ -7202,7 +7395,7 @@ GameObject:
   - component: {fileID: 665312257}
   - component: {fileID: 665312256}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Passive Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7216,12 +7409,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665312254}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 6, y: 4, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4342457101959176388}
+  m_Father: {fileID: 500261989}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &665312256
 MonoBehaviour:
@@ -7238,18 +7431,18 @@ MonoBehaviour:
   exposedObject: {fileID: 665312255}
   prefix: Sphere
   fields:
-  - exposed: 0
+  - exposed: 1
     fieldName: Transform
-    groupName: 
+    groupName: Dynamic Objects
   - exposed: 0
     fieldName: Local Rotation
     groupName: 
-  - exposed: 1
+  - exposed: 0
     fieldName: Local Position
-    groupName: Movable Objects
-  - exposed: 1
+    groupName: 
+  - exposed: 0
     fieldName: Local Scale
-    groupName: Movable Objects
+    groupName: 
   - exposed: 0
     fieldName: Constrain Proportions Scale
     groupName: 
@@ -22608,6 +22801,7 @@ GameObject:
   - component: {fileID: 1925257061}
   - component: {fileID: 1925257060}
   - component: {fileID: 1925257058}
+  - component: {fileID: 1925257062}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -22783,8 +22977,8 @@ Camera:
   m_FOVAxisMode: 0
   m_Iso: 200
   m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 10
+  m_Aperture: 10
+  m_FocusDistance: 20
   m_FocalLength: 20
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
@@ -22818,6 +23012,126 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1925257062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925257056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: effff934078e48b468de9840b7c86bce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exposedObject: {fileID: 1925257061}
+  prefix: Camera
+  fields:
+  - exposed: 0
+    fieldName: Clear Flags
+    groupName: 
+  - exposed: 0
+    fieldName: Back Ground Color
+    groupName: 
+  - exposed: 0
+    fieldName: Projection Matrix Mode
+    groupName: 
+  - exposed: 0
+    fieldName: Gate Fit Mode
+    groupName: 
+  - exposed: 0
+    fieldName: FOV Axis Mode
+    groupName: 
+  - exposed: 1
+    fieldName: Iso
+    groupName: Camera
+  - exposed: 1
+    fieldName: Shutter Speed
+    groupName: Camera
+  - exposed: 1
+    fieldName: Aperture
+    groupName: Camera
+  - exposed: 1
+    fieldName: Focus Distance
+    groupName: Camera
+  - exposed: 1
+    fieldName: Focal Length
+    groupName: Camera
+  - exposed: 0
+    fieldName: Blade Count
+    groupName: 
+  - exposed: 0
+    fieldName: Curvature
+    groupName: 
+  - exposed: 0
+    fieldName: Barrel Clipping
+    groupName: 
+  - exposed: 0
+    fieldName: Anamorphism
+    groupName: 
+  - exposed: 0
+    fieldName: Sensor Size
+    groupName: 
+  - exposed: 0
+    fieldName: Lens Shift
+    groupName: 
+  - exposed: 0
+    fieldName: Normalized View Port Rect
+    groupName: 
+  - exposed: 0
+    fieldName: Near clip plane
+    groupName: 
+  - exposed: 0
+    fieldName: Far clip plane
+    groupName: 
+  - exposed: 0
+    fieldName: Field of view
+    groupName: 
+  - exposed: 0
+    fieldName: Orthographic
+    groupName: 
+  - exposed: 0
+    fieldName: Orthographic size
+    groupName: 
+  - exposed: 0
+    fieldName: Depth
+    groupName: 
+  - exposed: 0
+    fieldName: Culling Mask
+    groupName: 
+  - exposed: 0
+    fieldName: Rendering Path
+    groupName: 
+  - exposed: 0
+    fieldName: Target Texture
+    groupName: 
+  - exposed: 0
+    fieldName: Target Display
+    groupName: 
+  - exposed: 0
+    fieldName: Target Eye
+    groupName: 
+  - exposed: 0
+    fieldName: HDR
+    groupName: 
+  - exposed: 0
+    fieldName: Allow MSAA
+    groupName: 
+  - exposed: 0
+    fieldName: Allow Dynamic Resolution
+    groupName: 
+  - exposed: 0
+    fieldName: Force Into RT
+    groupName: 
+  - exposed: 0
+    fieldName: Occlusion Culling
+    groupName: 
+  - exposed: 0
+    fieldName: Stereo Convergence
+    groupName: 
+  - exposed: 0
+    fieldName: Stereo Separation
+    groupName: 
 --- !u!1001 &1942720866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24822,12 +25136,12 @@ MonoBehaviour:
   exposedObject: {fileID: 2035111235}
   prefix: Sun
   fields:
-  - exposed: 0
-    fieldName: Transform
-    groupName: 
   - exposed: 1
-    fieldName: Local Rotation
+    fieldName: Transform
     groupName: Light
+  - exposed: 0
+    fieldName: Local Rotation
+    groupName: 
   - exposed: 0
     fieldName: Local Position
     groupName: 
@@ -26674,7 +26988,6 @@ Transform:
   - {fileID: 1821451200}
   - {fileID: 248024621}
   - {fileID: 714672050}
-  - {fileID: 665312255}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!215 &4803892908669392208
@@ -28526,3 +28839,4 @@ SceneRoots:
   - {fileID: 1766869843}
   - {fileID: 1046469887}
   - {fileID: 1417562852}
+  - {fileID: 500261989}
