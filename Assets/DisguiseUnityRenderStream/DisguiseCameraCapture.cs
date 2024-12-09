@@ -75,8 +75,13 @@ class DisguiseRenderStream
                 channels.UnionWith(getTemplateCameras().Select(camera => camera.name));
                 schema.channels = channels.ToArray();
 
+#if UNITY_6000_0_OR_NEWER
+                DisguiseRemoteParameters[] drp = UnityEngine.Object.FindObjectsByType<DisguiseRemoteParameters>(FindObjectsSortMode.None);
+#else
+                DisguiseRemoteParameters[] drp = UnityEngine.Object.FindObjectsOfType(typeof(DisguiseRemoteParameters)) as DisguiseRemoteParameters[];
+#endif
                 List<ManagedRemoteParameter> parameters = new List<ManagedRemoteParameter>();
-                foreach (var parameter in UnityEngine.Object.FindObjectsOfType(typeof(DisguiseRemoteParameters)) as DisguiseRemoteParameters[])
+                foreach (var parameter in drp)
                     parameters.AddRange(parameter.exposedParameters());
                 schema.scenes[activeScene.buildIndex] = new ManagedRemoteParameters();
                 ManagedRemoteParameters scene = schema.scenes[activeScene.buildIndex];
@@ -100,8 +105,13 @@ class DisguiseRenderStream
                 }
                 ManagedRemoteParameters scene = schema.scenes[0];
                 scene.name = "Default";
+#if UNITY_6000_0_OR_NEWER
+                DisguiseRemoteParameters[] drp = UnityEngine.Object.FindObjectsByType<DisguiseRemoteParameters>(FindObjectsSortMode.None);
+#else
+                DisguiseRemoteParameters[] drp = UnityEngine.Object.FindObjectsOfType(typeof(DisguiseRemoteParameters)) as DisguiseRemoteParameters[];
+#endif
                 List<ManagedRemoteParameter> parameters = new List<ManagedRemoteParameter>(scene.parameters);
-                foreach (var parameter in UnityEngine.Object.FindObjectsOfType(typeof(DisguiseRemoteParameters)) as DisguiseRemoteParameters[])
+                foreach (var parameter in drp)
                     parameters.AddRange(parameter.exposedParameters());
                 scene.parameters = parameters.ToArray();
                 break;
@@ -182,7 +192,11 @@ class DisguiseRenderStream
                 sceneIndex = loadedScene.buildIndex;
                 break;
         }
+#if UNITY_6000_0_OR_NEWER
+        DisguiseRemoteParameters[] remoteParameters = UnityEngine.Object.FindObjectsByType<DisguiseRemoteParameters>(FindObjectsSortMode.None);
+#else
         DisguiseRemoteParameters[] remoteParameters = UnityEngine.Object.FindObjectsOfType(typeof(DisguiseRemoteParameters)) as DisguiseRemoteParameters[];
+#endif
         ManagedRemoteParameters scene = schema.scenes[sceneIndex];
         sceneFields[sceneIndex] = new SceneFields{ numerical = new List<ObjectField>(), images = new List<ObjectField>(), texts = new List<ObjectField>() };
         SceneFields fields = sceneFields[sceneIndex];
@@ -582,8 +596,11 @@ public class DisguiseCameraCapture : MonoBehaviour
 
         m_camera = GetComponent<Camera>();
         m_frameSender = new Disguise.RenderStream.FrameSender(gameObject.name, m_camera);
+#if UNITY_6000_0_OR_NEWER
+        RenderPipelineManager.endCameraRendering += RenderPipelineManager_endCameraRendering;
+#else
         RenderPipelineManager.endFrameRendering += RenderPipelineManager_endFrameRendering;
-
+#endif
         if (Application.isPlaying == false)
             yield break;
 
@@ -591,7 +608,6 @@ public class DisguiseCameraCapture : MonoBehaviour
             yield return StartCoroutine(DisguiseRenderStream.AwaitFrame());
     }
 
-    // Update is called once per frame
     public void Update()
     {
         // set tracking
@@ -601,28 +617,28 @@ public class DisguiseCameraCapture : MonoBehaviour
         if (m_newFrameData)
         {
             cameraAspect = m_cameraData.sensorX / m_cameraData.sensorY;
-			if (m_cameraData.cameraHandle != 0)  // If no camera, only set aspect
-			{
-				transform.localPosition = new Vector3(m_cameraData.x, m_cameraData.y, m_cameraData.z);
-				transform.localRotation = Quaternion.Euler(new Vector3(-m_cameraData.rx, m_cameraData.ry, -m_cameraData.rz));
-				m_camera.nearClipPlane = m_cameraData.nearZ;
-				m_camera.farClipPlane = m_cameraData.farZ;
+            if (m_cameraData.cameraHandle != 0)  // If no camera, only set aspect
+            {
+                transform.localPosition = new Vector3(m_cameraData.x, m_cameraData.y, m_cameraData.z);
+                transform.localRotation = Quaternion.Euler(new Vector3(-m_cameraData.rx, m_cameraData.ry, -m_cameraData.rz));
+                m_camera.nearClipPlane = m_cameraData.nearZ;
+                m_camera.farClipPlane = m_cameraData.farZ;
 
-				if (m_cameraData.orthoWidth > 0.0f)  // Use an orthographic camera
-				{  
-					m_camera.orthographic = true;
-					m_camera.orthographicSize = 0.5f * m_cameraData.orthoWidth / cameraAspect;
-					transform.localPosition = new Vector3(m_cameraData.x, m_cameraData.y, m_cameraData.z);
-					transform.localRotation = Quaternion.Euler(new Vector3(-m_cameraData.rx, m_cameraData.ry, -m_cameraData.rz));
-				}
-				else  // Perspective projection, use camera lens properties
-				{
-					m_camera.usePhysicalProperties = true;
-					m_camera.sensorSize = new Vector2(m_cameraData.sensorX, m_cameraData.sensorY);
-					m_camera.focalLength = m_cameraData.focalLength;
-					lensShift = new Vector2(-m_cameraData.cx, m_cameraData.cy);
-				}
-			}
+                if (m_cameraData.orthoWidth > 0.0f)  // Use an orthographic camera
+                {  
+                    m_camera.orthographic = true;
+                    m_camera.orthographicSize = 0.5f * m_cameraData.orthoWidth / cameraAspect;
+                    transform.localPosition = new Vector3(m_cameraData.x, m_cameraData.y, m_cameraData.z);
+                    transform.localRotation = Quaternion.Euler(new Vector3(-m_cameraData.rx, m_cameraData.ry, -m_cameraData.rz));
+                }
+                else  // Perspective projection, use camera lens properties
+                {
+                    m_camera.usePhysicalProperties = true;
+                    m_camera.sensorSize = new Vector2(m_cameraData.sensorX, m_cameraData.sensorY);
+                    m_camera.focalLength = m_cameraData.focalLength;
+                    lensShift = new Vector2(-m_cameraData.cx, m_cameraData.cy);
+                }
+            }
         }
         else if (m_frameSender != null)
         {
@@ -710,6 +726,15 @@ public class DisguiseCameraCapture : MonoBehaviour
         }
     }
 
+#if UNITY_6000_0_OR_NEWER
+    private void RenderPipelineManager_endCameraRendering(ScriptableRenderContext context, Camera camera)
+    {
+        if (camera == m_camera)
+        {
+            CheckAndSendFrame();
+        }
+    }
+#else
     private void RenderPipelineManager_endFrameRendering(ScriptableRenderContext context, Camera[] cameras)
     {
         foreach (var cam in cameras)
@@ -718,6 +743,8 @@ public class DisguiseCameraCapture : MonoBehaviour
                 CheckAndSendFrame();
         }
     }
+#endif
+
 
     public void OnDestroy()
     {
@@ -729,7 +756,11 @@ public class DisguiseCameraCapture : MonoBehaviour
         {
             m_frameSender.DestroyStream();
         }
+#if UNITY_6000_0_OR_NEWER
+        RenderPipelineManager.endCameraRendering -= RenderPipelineManager_endCameraRendering;
+#else
         RenderPipelineManager.endFrameRendering -= RenderPipelineManager_endFrameRendering;
+#endif
     }
 
     Camera m_camera;
@@ -767,7 +798,7 @@ namespace Disguise.RenderStream
         RS_FRAMETYPE_DX11_TEXTURE,
         RS_FRAMETYPE_DX12_TEXTURE,
         RS_FRAMETYPE_OPENGL_TEXTURE,
-		RS_FRAMETYPE_VULKAN_TEXTURE,
+        RS_FRAMETYPE_VULKAN_TEXTURE,
         RS_FRAMETYPE_UNKNOWN
     }
 
@@ -829,14 +860,14 @@ namespace Disguise.RenderStream
     {
         REMOTEPARAMETER_NO_FLAGS = 0,
         REMOTEPARAMETER_NO_SEQUENCE = 1,
-		REMOTEPARAMETER_READ_ONLY = 2
+        REMOTEPARAMETER_READ_ONLY = 2
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
-	public struct D3TrackingData
-	{
-		public byte virtualReprojectionRequired;
-	}  // Tracking data required by d3 but not used to render content
+    public struct D3TrackingData
+    {
+        public byte virtualReprojectionRequired;
+    }  // Tracking data required by d3 but not used to render content
 
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct CameraData
@@ -850,9 +881,9 @@ namespace Disguise.RenderStream
         public float cx, cy;
         public float nearZ, farZ;
         public float orthoWidth;  // If > 0, an orthographic camera should be used
-		public float aperture; // Apply if > 0
-		public float focusDistance;  // Apply if > 0
-		public D3TrackingData d3Tracking;
+        public float aperture; // Apply if > 0
+        public float focusDistance;  // Apply if > 0
+        public D3TrackingData d3Tracking;
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
@@ -888,9 +919,9 @@ namespace Disguise.RenderStream
     [StructLayout(LayoutKind.Explicit)]
     public struct SenderFrame
     {
-		[FieldOffset(0)]
-		public SenderFrameType type;
-		/*union*/ 
+        [FieldOffset(0)]
+        public SenderFrameType type;
+        /*union*/ 
         // struct HostMemoryData
         [FieldOffset(4)]
         public /*uint8_t**/ IntPtr host_data;
@@ -905,25 +936,25 @@ namespace Disguise.RenderStream
         // struct OpenGlData
         [FieldOffset(4)]
         public /*GLuint**/ UInt32 gl_texture;
-		// struct VulkanData
-		[FieldOffset(4)]
-		public /*VkDeviceMemory*/ IntPtr cameraData;
-		[FieldOffset(12)]
-		public /*VkDeviceSize*/ UInt64 size;
-		[FieldOffset(20)]
-		public RSPixelFormat format;
-		[FieldOffset(24)]
-		public UInt32 width;
-		[FieldOffset(28)]
-		public UInt32 height;
-		[FieldOffset(32)]
-		public /*VkSemaphore*/ IntPtr waitSemaphore;
-		[FieldOffset(40)]
-		public UInt64 waitSemaphoreValue;
-		[FieldOffset(48)]
-		public /*VkSemaphore*/ IntPtr signalSemaphore;
-		[FieldOffset(56)]
-		public UInt64 signalSemaphoreValue;
+        // struct VulkanData
+        [FieldOffset(4)]
+        public /*VkDeviceMemory*/ IntPtr cameraData;
+        [FieldOffset(12)]
+        public /*VkDeviceSize*/ UInt64 size;
+        [FieldOffset(20)]
+        public RSPixelFormat format;
+        [FieldOffset(24)]
+        public UInt32 width;
+        [FieldOffset(28)]
+        public UInt32 height;
+        [FieldOffset(32)]
+        public /*VkSemaphore*/ IntPtr waitSemaphore;
+        [FieldOffset(40)]
+        public UInt64 waitSemaphoreValue;
+        [FieldOffset(48)]
+        public /*VkSemaphore*/ IntPtr signalSemaphore;
+        [FieldOffset(56)]
+        public UInt64 signalSemaphoreValue;
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
@@ -958,9 +989,9 @@ namespace Disguise.RenderStream
         public UInt32 height;
         public RSPixelFormat format;
         public ProjectionClipping clipping;
-		[MarshalAs(UnmanagedType.LPStr)]
+        [MarshalAs(UnmanagedType.LPStr)]
         public string mappingName;
-		public Int32 iFragment;
+        public Int32 iFragment;
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
@@ -977,8 +1008,8 @@ namespace Disguise.RenderStream
         RS_PARAMETER_POSE,      // 4x4 TR matrix
         RS_PARAMETER_TRANSFORM, // 4x4 TRS matrix
         RS_PARAMETER_TEXT,
-		RS_PARAMETER_EVENT,
-		RS_PARAMETER_SKELETON
+        RS_PARAMETER_EVENT,
+        RS_PARAMETER_SKELETON
     }
 
     public enum RemoteParameterDmxType : UInt32
@@ -1062,7 +1093,7 @@ namespace Disguise.RenderStream
         public string engineName;
         [MarshalAs(UnmanagedType.LPStr)]
         public string engineVersion;
-		[MarshalAs(UnmanagedType.LPStr)] 
+        [MarshalAs(UnmanagedType.LPStr)] 
         public string pluginVersion;
         [MarshalAs(UnmanagedType.LPStr)]
         public string info;
@@ -1342,7 +1373,7 @@ namespace Disguise.RenderStream
                 Schema cSchema = new Schema();
                 cSchema.engineName = "Unity Engine";
                 cSchema.engineVersion = Application.unityVersion;
-				cSchema.pluginVersion = "RS2.0-Unity-v0";
+                cSchema.pluginVersion = "RS2.0-Unity-v0";
                 cSchema.info = Application.productName;
                 cSchema.channels.nChannels = (UInt32)schema.channels.Length;
                 cSchema.channels.channels = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(IntPtr)) * (int)cSchema.channels.nChannels);
@@ -1506,8 +1537,8 @@ namespace Disguise.RenderStream
             if (handleReference.IsAllocated)
                 handleReference.Free();
             handleReference = GCHandle.Alloc(frameData, GCHandleType.Pinned);
-			
-			if (handleReference2.IsAllocated)
+            
+            if (handleReference2.IsAllocated)
                 handleReference2.Free();
             handleReference2 = GCHandle.Alloc(data, GCHandleType.Pinned);
             
@@ -1523,8 +1554,8 @@ namespace Disguise.RenderStream
             }
             //return RS_ERROR.RS_ERROR_UNSPECIFIED;
         }
-		
-		public RS_ERROR getFrameImage(Int64 imageId, ref SenderFrame data)
+        
+        public RS_ERROR getFrameImage(Int64 imageId, ref SenderFrame data)
         {
             if (m_getFrameImage == null)
                 return RS_ERROR.RS_NOT_INITIALISED;
@@ -1532,7 +1563,7 @@ namespace Disguise.RenderStream
             if (handleReference.IsAllocated)
                 handleReference.Free();
             handleReference = GCHandle.Alloc(data, GCHandleType.Pinned);
-			
+            
             try
             {
                 RS_ERROR error = m_getFrameImage(imageId, handleReference.AddrOfPinnedObject());
@@ -1660,13 +1691,13 @@ namespace Disguise.RenderStream
         {
             if (m_getFrameImage == null)
                 return RS_ERROR.RS_NOT_INITIALISED;
-			
+            
             try
             {
                 SenderFrame data = new SenderFrame();
-				data.type = SenderFrameType.RS_FRAMETYPE_DX11_TEXTURE;
+                data.type = SenderFrameType.RS_FRAMETYPE_DX11_TEXTURE;
                 data.dx11_resource = texture.GetNativeTexturePtr();
-				RS_ERROR error = PluginEntry.instance.getFrameImage(imageId, ref data);
+                RS_ERROR error = PluginEntry.instance.getFrameImage(imageId, ref data);
                 return error;
             }
             finally
@@ -1794,7 +1825,7 @@ namespace Disguise.RenderStream
         bool functionsLoaded = false;
         IntPtr d3RenderStreamDLL = IntPtr.Zero;
         GCHandle handleReference; // Everything is run under coroutines with odd lifetimes, so store a reference to GCHandle
-		GCHandle handleReference2;
+        GCHandle handleReference2;
 
         string name;
 
@@ -2031,7 +2062,7 @@ namespace Disguise.RenderStream
             unsafe
             {
                 SenderFrame data = new SenderFrame();
-				data.type = SenderFrameType.RS_FRAMETYPE_DX11_TEXTURE;
+                data.type = SenderFrameType.RS_FRAMETYPE_DX11_TEXTURE;
                 data.dx11_resource = frame.GetNativeTexturePtr();
                 RS_ERROR error = PluginEntry.instance.sendFrame(m_streamHandle, ref data, ref m_responseData);
                 if (error != RS_ERROR.RS_ERROR_SUCCESS)
