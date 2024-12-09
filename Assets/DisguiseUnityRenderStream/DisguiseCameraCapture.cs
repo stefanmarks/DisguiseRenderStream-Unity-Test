@@ -620,16 +620,16 @@ public class DisguiseCameraCapture : MonoBehaviour
             if (m_cameraData.cameraHandle != 0)  // If no camera, only set aspect
             {
                 transform.localPosition = new Vector3(m_cameraData.x, m_cameraData.y, m_cameraData.z);
-                transform.localRotation = Quaternion.Euler(new Vector3(-m_cameraData.rx, m_cameraData.ry, -m_cameraData.rz));
-                m_camera.nearClipPlane = m_cameraData.nearZ;
-                m_camera.farClipPlane = m_cameraData.farZ;
+                transform.localRotation = Quaternion.Euler(-m_cameraData.rx, m_cameraData.ry, -m_cameraData.rz);
+                m_camera.nearClipPlane  = m_cameraData.nearZ;
+                m_camera.farClipPlane   = m_cameraData.farZ;
 
                 if (m_cameraData.orthoWidth > 0.0f)  // Use an orthographic camera
                 {  
                     m_camera.orthographic = true;
                     m_camera.orthographicSize = 0.5f * m_cameraData.orthoWidth / cameraAspect;
                     transform.localPosition = new Vector3(m_cameraData.x, m_cameraData.y, m_cameraData.z);
-                    transform.localRotation = Quaternion.Euler(new Vector3(-m_cameraData.rx, m_cameraData.ry, -m_cameraData.rz));
+                    transform.localRotation = Quaternion.Euler(-m_cameraData.rx, m_cameraData.ry, -m_cameraData.rz);
                 }
                 else  // Perspective projection, use camera lens properties
                 {
