@@ -36,10 +36,24 @@ public class RenderingPipelineDefines
 
     static PipelineType GetPipeline()
     {
-#if UNITY_2019_1_OR_NEWER
-        if (GraphicsSettings.renderPipelineAsset != null)
+#if UNITY_6000_0_OR_NEWER
+        if (GraphicsSettings.defaultRenderPipeline != null)
         {
-            var srpType = GraphicsSettings.renderPipelineAsset.GetType().ToString();
+            var srpType = GraphicsSettings.defaultRenderPipeline.GetType().ToString();
+
+            if (srpType.Contains("HDRenderPipelineAsset"))
+                return PipelineType.HDRPipeline;
+            
+            if (srpType.Contains("UniversalRenderPipelineAsset") || srpType.Contains("LightweightRenderPipelineAsset"))
+                return PipelineType.UniversalPipeline;
+            
+            return PipelineType.Unsupported;
+        }
+
+#elif UNITY_2019_1_OR_NEWER
+        if (GraphicsSettings.renderPipelineAsset  != null)
+        {
+            var srpType = GraphicsSettings.renderPipelineAsset .GetType().ToString();
 
             if (srpType.Contains("HDRenderPipelineAsset"))
                 return PipelineType.HDRPipeline;
