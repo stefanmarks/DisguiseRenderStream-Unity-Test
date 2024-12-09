@@ -745,7 +745,6 @@ public class DisguiseCameraCapture : MonoBehaviour
     }
 #endif
 
-
     public void OnDestroy()
     {
     }
