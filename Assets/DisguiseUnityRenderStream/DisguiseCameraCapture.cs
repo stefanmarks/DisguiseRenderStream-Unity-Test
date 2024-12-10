@@ -1391,9 +1391,9 @@ namespace Disguise.RenderStream
                 {
                     ManagedRemoteParameters managedParameters = schema.scenes[i];
                     RemoteParameters parameters = new RemoteParameters();
-                    parameters.name = managedParameters.name;
-                    parameters.nParameters = (UInt32)managedParameters.parameters.Length;
-                    parameters.parameters = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(RemoteParameter)) * (int)parameters.nParameters);
+                    parameters.name        = (managedParameters != null) ? managedParameters.name : "";
+                    parameters.nParameters = (managedParameters != null) ? (UInt32)managedParameters.parameters.Length : 0;
+                    parameters.parameters  = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(RemoteParameter)) * (int)parameters.nParameters);
                     allocations.Add(parameters.parameters);
                     for (int j = 0; j < parameters.nParameters; ++j)
                     {
