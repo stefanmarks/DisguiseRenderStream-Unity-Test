@@ -183,6 +183,39 @@
         "com.unity.render-pipelines.core": "17.0.4"
       }
     },
+    "com.unity.xr.legacyinputhelpers": {
+      "version": "2.1.12",
+      "depth": 2,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.vr": "1.0.0",
+        "com.unity.modules.xr": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.xr.management": {
+      "version": "4.5.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.vr": "1.0.0",
+        "com.unity.modules.xr": "1.0.0",
+        "com.unity.modules.subsystems": "1.0.0",
+        "com.unity.xr.legacyinputhelpers": "2.1.7"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "nz.ac.aut.sentiencelab": {
+      "version": "https://github.com/stefanmarks/SentienceLab_UnityFramework.git#v1.8",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.inputsystem": "1.11.0",
+        "com.unity.ugui": "2.0.0",
+        "com.unity.xr.management": "4.5.0"
+      },
+      "hash": "52f97af72726538d979759991f20e0f2620cfdc4"
+    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,

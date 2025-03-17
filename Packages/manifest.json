@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "nz.ac.aut.sentiencelab": "https://github.com/stefanmarks/SentienceLab_UnityFramework.git#v1.8",
     "com.unity.ide.visualstudio": "2.0.22",
     "com.unity.inputsystem": "1.13.1",
     "com.unity.multiplayer.center": "1.0.0",
