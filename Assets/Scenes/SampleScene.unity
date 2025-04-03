@@ -9192,7 +9192,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f042a9897837021468ecfcb204be998e, type: 2}
+  - {fileID: 2100000, guid: 587b589e0d804a3489c8a1962960fa7d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9244,7 +9244,7 @@ MonoBehaviour:
           m_MethodName: set_material
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 2100000, guid: 6a4a9cd798f58bf419164a016513c59e, type: 2}
+            m_ObjectArgument: {fileID: 2100000, guid: 89777c57e448943439338a5ab2851332, type: 2}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -9259,7 +9259,7 @@ MonoBehaviour:
           m_MethodName: set_material
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 2100000, guid: f042a9897837021468ecfcb204be998e, type: 2}
+            m_ObjectArgument: {fileID: 2100000, guid: 587b589e0d804a3489c8a1962960fa7d, type: 2}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -11128,7 +11128,7 @@ MonoBehaviour:
   startClientList:
   - 127.0.0.1
   DistributeData: 0
-  debugDataStream: 1
+  debugDataStream: 0
 --- !u!4 &991803807
 Transform:
   m_ObjectHideFlags: 0
@@ -20785,7 +20785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aaec203fd21f2e4db4de73dfc19576e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefix: /tracked_device/tracker1
+  Prefix: /tracker1
 --- !u!114 &1784025499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20798,7 +20798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 960ef776fde62e945a0d0876fc37e5e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefix: /tracked_device/tracker1
+  Prefix: /tracker1
   OnInput1Event:
     m_PersistentCalls:
       m_Calls:
@@ -20828,7 +20828,19 @@ MonoBehaviour:
         m_CallState: 2
   OnInput2Event:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 773771288}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnInput3Event:
     m_PersistentCalls:
       m_Calls: []
@@ -24156,7 +24168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aaec203fd21f2e4db4de73dfc19576e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefix: /tracked_device/hmd
+  Prefix: /hmd
 --- !u!1001 &1942720866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25922,6 +25934,7 @@ GameObject:
   - component: {fileID: 2035111237}
   - component: {fileID: 2035111238}
   - component: {fileID: 2035111239}
+  - component: {fileID: 2035111240}
   m_Layer: 9
   m_Name: Sun
   m_TagString: Untagged
@@ -25940,7 +25953,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 100000
+  m_Intensity: 28467.744
   m_Range: 100
   m_SpotAngle: 72.3
   m_InnerSpotAngle: 21.802082
@@ -26244,16 +26257,16 @@ MonoBehaviour:
   - exposed: 0
     fieldName: Shadow Angle
     groupName: 
-  - exposed: 1
+  - exposed: 0
     fieldName: Force Visible
     groupName: 
-  - exposed: 1
+  - exposed: 0
     fieldName: Light Unit
     groupName: 
-  - exposed: 1
+  - exposed: 0
     fieldName: Lux At Distance
     groupName: 
-  - exposed: 1
+  - exposed: 0
     fieldName: Enable Spot Reflector
     groupName: 
 --- !u!1818360609 &2035111239
@@ -26276,6 +26289,43 @@ RotationConstraint:
   m_Sources:
   - sourceTransform: {fileID: 339516237}
     weight: 1
+--- !u!114 &2035111240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035111233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 960ef776fde62e945a0d0876fc37e5e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefix: /io_device_1
+  OnInput1Event:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInput2Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2035111234}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnInput3Event:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInput4Event:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &2041309359
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26585,13 +26635,13 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 100000
+  m_Intensity: 1000000
   m_Range: 50
   m_SpotAngle: 20
   m_InnerSpotAngle: 20
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -26637,7 +26687,7 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_LightUnit: 2
-  m_LuxAtDistance: 1
+  m_LuxAtDistance: 10
   m_EnableSpotReflector: 1
 --- !u!1 &2076744743
 GameObject:
