@@ -30,7 +30,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.22",
+      "version": "2.0.23",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -214,7 +214,7 @@
         "com.unity.ugui": "2.0.0",
         "com.unity.xr.management": "4.5.0"
       },
-      "hash": "395f0bd6473c0866a57d2686f32fe9dbd6637dcf"
+      "hash": "2585a9eae092d1a3b6e8a18737b6e2819b575060"
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",

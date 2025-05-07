@@ -1957,10 +1957,18 @@ namespace Disguise.RenderStream
                 Debug.LogError(string.Format("Failed to initialise: {0}", error));
             else
             {
-                Texture2D texture = new Texture2D(1, 1);
-                error = m_initialiseGpGpuWithDX11Resource(texture.GetNativeTexturePtr());
-                if (error != RS_ERROR.RS_ERROR_SUCCESS)
-                    Debug.LogError(string.Format("Failed to initialise GPU interop: {0}", error));
+                if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.Direct3D12)
+                {
+                    Debug.Log("Using DirectX 12");
+                }
+                else
+                {
+                    Debug.Log("Not using DirectX 12");
+                    Texture2D texture = new Texture2D(1, 1);
+                    error = m_initialiseGpGpuWithDX11Resource(texture.GetNativeTexturePtr());
+                    if (error != RS_ERROR.RS_ERROR_SUCCESS)
+                        Debug.LogError(string.Format("Failed to initialise GPU interop: {0}", error));
+                }
             }
 
             Debug.Log("Loaded RenderStream");
