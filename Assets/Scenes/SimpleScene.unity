@@ -200,7 +200,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefix: /tracker2
-  UpdateType: 0
+  PoseType: 0
+  UpdateType: 2
   ApplyTrackedState: 1
 --- !u!1 &151806453
 GameObject:
@@ -2836,6 +2837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefix: /tracker1
+  PoseType: 2
   UpdateType: 0
   ApplyTrackedState: 1
 --- !u!114 &1784025499

@@ -4,14 +4,23 @@ using UnityEngine;
 
 public class OSC_TrackedDevice : MonoBehaviour, IOSCVariableContainer
 {
+	public enum EPoseType
+	{
+		[InspectorName("Position")]              Position,
+		[InspectorName("Rotation")]              Rotation,
+		[InspectorName("Position and Rotation")] PositionAndRotation
+	};
+	
 	public enum EUpdateType { 
 		[InspectorName("Update")]                Update,
 		[InspectorName("LateUpdate")]            LateUpdate,
 		[InspectorName("Update and LateUpdate")] UpdateAndLateUpdate 
 	};
 
-	public string      Prefix            = "/tracked_device";
 	
+	public string      Prefix            = "/tracked_device";
+
+	public EPoseType   PoseType          = EPoseType.PositionAndRotation;
 	public EUpdateType UpdateType        = EUpdateType.Update;
 
 	public bool        ApplyTrackedState = false;
@@ -31,7 +40,7 @@ public class OSC_TrackedDevice : MonoBehaviour, IOSCVariableContainer
 	{
 		if ((UpdateType == EUpdateType.Update) || (UpdateType == EUpdateType.UpdateAndLateUpdate))
 		{
-			transform.SetLocalPositionAndRotation(m_pose.Position, m_pose.Rotation);
+			ApplyPose();
 		}
 	}
 
@@ -40,7 +49,24 @@ public class OSC_TrackedDevice : MonoBehaviour, IOSCVariableContainer
 	{
 		if ((UpdateType == EUpdateType.LateUpdate) || (UpdateType == EUpdateType.UpdateAndLateUpdate))
 		{
+			ApplyPose();
+		}
+	}
+
+
+	protected void ApplyPose()
+	{
+		if (PoseType == EPoseType.PositionAndRotation)
+		{
 			transform.SetLocalPositionAndRotation(m_pose.Position, m_pose.Rotation);
+		}
+		else if (PoseType == EPoseType.Position)
+		{
+			transform.localPosition = m_pose.Position;
+		}
+		else 
+		{
+			transform.localRotation = m_pose.Rotation;
 		}
 	}
 
