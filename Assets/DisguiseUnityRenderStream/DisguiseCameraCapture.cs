@@ -582,6 +582,9 @@ class DisguiseRenderStream
 [RequireComponent(typeof(Camera))]
 public class DisguiseCameraCapture : MonoBehaviour
 {
+    [Tooltip("Uncheck to control camera parameters from within the game engine\n.Check to control camera parameters from disguise")]
+    public bool ApplyCameraData = true;
+
     // Start is called before the first frame update
     public IEnumerator Start()
     {
@@ -610,6 +613,8 @@ public class DisguiseCameraCapture : MonoBehaviour
 
     public void Update()
     {
+        if (!ApplyCameraData) return;
+
         // set tracking
         m_newFrameData = DisguiseRenderStream.newFrameData && m_frameSender != null && m_frameSender.GetCameraData(ref m_cameraData);
         float cameraAspect = m_camera.aspect;
