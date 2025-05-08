@@ -26,13 +26,24 @@ public class OSC_TrackedDevice : MonoBehaviour, IOSCVariableContainer
 	public bool        ApplyTrackedState = false;
 
 
+	protected void Initialise()
+	{
+		if (m_pose == null)
+		{
+			m_pose    = new OSC_6DofPoseVariable(Prefix + "/pose",    OSC_6DofPoseVariable.EDataFormat.Pos_RotQuat);
+			m_tracked = new OSC_BoolVariable(    Prefix + "/tracked");
+		}
+	}
+	
+	
 	public void Awake()
 	{
-		m_pose    = new OSC_6DofPoseVariable(Prefix + "/pose",    OSC_6DofPoseVariable.EDataFormat.Pos_RotQuat);
-		
-		m_tracked = new OSC_BoolVariable(    Prefix + "/tracked");
+		Initialise();
 		m_tracked.OnDataReceived += OnTrackedStateChanged;
-		if (ApplyTrackedState) OnTrackedStateChanged(m_tracked); // force inactive
+		if (ApplyTrackedState)
+		{
+			OnTrackedStateChanged(m_tracked); // force inactive
+		}
 	}
 
 	
@@ -75,13 +86,14 @@ public class OSC_TrackedDevice : MonoBehaviour, IOSCVariableContainer
 	{
 		if (ApplyTrackedState)
 		{
-			this.gameObject.SetActive(((OSC_BoolVariable)var).Value);
+			this.gameObject.SetActive(m_tracked.Value);
 		}
 	}
 
 
 	public List<OSC_Variable> GetOSC_Variables()
 	{
+		Initialise();
 		return new List<OSC_Variable>() { m_pose, m_tracked };
 	}
 

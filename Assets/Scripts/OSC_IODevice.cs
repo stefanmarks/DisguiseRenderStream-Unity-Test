@@ -17,16 +17,25 @@ public class OSC_IODevice : MonoBehaviour, IOSCVariableContainer
 	public List<InputToEventMap> Inputs;
 
 
-	public void Start()
+	protected void Initialise()
 	{
-		m_inputs = new List<OSC_BoolVariable>();
-
-		foreach (var i in Inputs)
+		if (m_inputs == null)
 		{
-			OSC_BoolVariable oscVar = new OSC_BoolVariable(Prefix + "/" + i.OSC_Name);
-			oscVar.OnDataReceived += var => { OnUpdate(var, i.OnInputActive); };
-			m_inputs.Add(oscVar);
+			m_inputs = new List<OSC_BoolVariable>();
+
+			foreach (var input in Inputs)
+			{
+				OSC_BoolVariable oscVar = new OSC_BoolVariable(Prefix + "/" + input.OSC_Name);
+				oscVar.OnDataReceived += var => { OnUpdate(var, input.OnInputActive); };
+				m_inputs.Add(oscVar);
+			}
 		}
+	}
+
+
+	public void Awake()
+	{
+		Initialise();
 	}
 
 
@@ -44,9 +53,10 @@ public class OSC_IODevice : MonoBehaviour, IOSCVariableContainer
 
 	public List<OSC_Variable> GetOSC_Variables()
 	{
+		Initialise();
 		return new List<OSC_Variable>(m_inputs);
 	}
 
 
-	protected List<OSC_BoolVariable> m_inputs;
+	protected List<OSC_BoolVariable> m_inputs = null;
 }

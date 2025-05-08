@@ -2048,7 +2048,7 @@ namespace Disguise.RenderStream
 
             m_lastFrameCount = -1;
             m_streamHandle = stream.handle;
-            m_width = (int)stream.width;
+            m_width  = (int)stream.width;
             m_height = (int)stream.height;
 
             m_frameRegion = new Rect(stream.clipping.left, stream.clipping.top, stream.clipping.right - stream.clipping.left, stream.clipping.bottom - stream.clipping.top);
