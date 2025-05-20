@@ -448,15 +448,21 @@ class DisguiseRenderStream
                             }
                             else if (fieldType == typeof(Transform))
                             {
-                                Matrix4x4 m = new Matrix4x4();
-                                m.SetColumn(0, new Vector4(parameters[i + 0],  parameters[i + 1],  parameters[i + 2],  parameters[i + 3]));
-                                m.SetColumn(1, new Vector4(parameters[i + 4],  parameters[i + 5],  parameters[i + 6],  parameters[i + 7]));
-                                m.SetColumn(2, new Vector4(parameters[i + 8],  parameters[i + 9],  parameters[i + 10], parameters[i + 11]));
-                                m.SetColumn(3, new Vector4(parameters[i + 12], parameters[i + 13], parameters[i + 14], parameters[i + 15]));
                                 Transform transform = field.GetValue() as Transform;
-                                transform.localPosition = new Vector3(m[0, 3], m[1, 3], m[2, 3]);
-                                transform.localScale = m.lossyScale;
-                                transform.localRotation = m.rotation;
+                                DisguiseCameraCapture dcc = transform.gameObject.GetComponent<DisguiseCameraCapture>();
+                                if ((dcc == null) || (dcc.ApplyCameraData))
+                                {
+                                    Matrix4x4 m = new Matrix4x4();
+                                    m.SetColumn(0, new Vector4(parameters[i + 0],  parameters[i + 1],  parameters[i + 2],  parameters[i + 3]));
+                                    m.SetColumn(1, new Vector4(parameters[i + 4],  parameters[i + 5],  parameters[i + 6],  parameters[i + 7]));
+                                    m.SetColumn(2, new Vector4(parameters[i + 8],  parameters[i + 9],  parameters[i + 10], parameters[i + 11]));
+                                    m.SetColumn(3, new Vector4(parameters[i + 12], parameters[i + 13], parameters[i + 14], parameters[i + 15]));
+                                    transform.SetLocalPositionAndRotation(
+                                        new Vector3(m[0, 3], m[1, 3], m[2, 3]),
+                                        m.rotation
+                                    );
+                                    transform.localScale = m.lossyScale;
+                                }
                                 i += 16;
                             }
                             else
@@ -613,10 +619,11 @@ public class DisguiseCameraCapture : MonoBehaviour
 
     public void Update()
     {
-        if (!ApplyCameraData) return;
-
         // set tracking
         m_newFrameData = DisguiseRenderStream.newFrameData && m_frameSender != null && m_frameSender.GetCameraData(ref m_cameraData);
+
+        if (!ApplyCameraData) return;
+
         float cameraAspect = m_camera.aspect;
         Vector2 lensShift = new Vector2(0.0f, 0.0f);
         if (m_newFrameData)
@@ -624,17 +631,21 @@ public class DisguiseCameraCapture : MonoBehaviour
             cameraAspect = m_cameraData.sensorX / m_cameraData.sensorY;
             if (m_cameraData.cameraHandle != 0)  // If no camera, only set aspect
             {
-                transform.localPosition = new Vector3(m_cameraData.x, m_cameraData.y, m_cameraData.z);
-                transform.localRotation = Quaternion.Euler(-m_cameraData.rx, m_cameraData.ry, -m_cameraData.rz);
-                m_camera.nearClipPlane  = m_cameraData.nearZ;
-                m_camera.farClipPlane   = m_cameraData.farZ;
+                transform.SetLocalPositionAndRotation(
+                    new Vector3(m_cameraData.x, m_cameraData.y, m_cameraData.z), 
+                    Quaternion.Euler(-m_cameraData.rx, m_cameraData.ry, -m_cameraData.rz)
+                );
+                m_camera.nearClipPlane = m_cameraData.nearZ;
+                m_camera.farClipPlane  = m_cameraData.farZ;
 
                 if (m_cameraData.orthoWidth > 0.0f)  // Use an orthographic camera
                 {  
                     m_camera.orthographic = true;
                     m_camera.orthographicSize = 0.5f * m_cameraData.orthoWidth / cameraAspect;
-                    transform.localPosition = new Vector3(m_cameraData.x, m_cameraData.y, m_cameraData.z);
-                    transform.localRotation = Quaternion.Euler(-m_cameraData.rx, m_cameraData.ry, -m_cameraData.rz);
+                    transform.SetLocalPositionAndRotation(
+                        new Vector3(m_cameraData.x, m_cameraData.y, m_cameraData.z), 
+                        Quaternion.Euler(-m_cameraData.rx, m_cameraData.ry, -m_cameraData.rz)
+                    );
                 }
                 else  // Perspective projection, use camera lens properties
                 {
