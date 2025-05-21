@@ -162,7 +162,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 55452886}
-  - component: {fileID: 55452887}
   m_Layer: 0
   m_Name: StereoCamera
   m_TagString: Untagged
@@ -187,22 +186,6 @@ Transform:
   - {fileID: 1499865765}
   m_Father: {fileID: 1417562852}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &55452887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 55452885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aaec203fd21f2e4db4de73dfc19576e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prefix: /tracker2
-  PoseType: 0
-  UpdateType: 2
-  ApplyTrackedState: 1
 --- !u!1 &151806453
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,6 +394,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ApplyCameraData: 0
+  PrintDebugInformation: 1
+  _dbgRxFrameData: 0
+  _dbgRxCameraData: 0
 --- !u!114 &197531376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2550,6 +2536,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ApplyCameraData: 0
+  PrintDebugInformation: 1
+  _dbgRxFrameData: 0
+  _dbgRxCameraData: 0
 --- !u!114 &1499865768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2938,7 +2927,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1925257057
 Transform:
   m_ObjectHideFlags: 0
@@ -3285,6 +3274,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ApplyCameraData: 1
+  PrintDebugInformation: 1
+  _dbgRxFrameData: 0
+  _dbgRxCameraData: 0
 --- !u!1 &1934172933
 GameObject:
   m_ObjectHideFlags: 0

@@ -467,7 +467,7 @@ class DisguiseRenderStream
 
                                     if (dcc != null)
                                     {
-                                        dcc._dbgOutsideTransformChange = true;
+                                        dcc._dbgRxFrameData = true;
                                     }
                                 }
                                 i += 16;
@@ -598,8 +598,12 @@ public class DisguiseCameraCapture : MonoBehaviour
     [Tooltip("Uncheck to control camera parameters from within the game engine\n.Check to control camera parameters from disguise")]
     public bool ApplyCameraData = true;
 
+    public bool PrintDebugInformation = false;
+
     [HideInInspector]
-    public bool _dbgOutsideTransformChange;
+    public bool _dbgRxFrameData = false;
+    [HideInInspector]
+    public bool _dbgRxCameraData = false;
 
     // Start is called before the first frame update
     public IEnumerator Start()
@@ -638,6 +642,7 @@ public class DisguiseCameraCapture : MonoBehaviour
             Vector2 lensShift = new Vector2(0.0f, 0.0f);
             if (m_newFrameData)
             {
+                _dbgRxCameraData = true;
                 cameraAspect = m_cameraData.sensorX / m_cameraData.sensorY;
                 if (m_cameraData.cameraHandle != 0)  // If no camera, only set aspect
                 {
@@ -666,14 +671,14 @@ public class DisguiseCameraCapture : MonoBehaviour
                     }
                 }
             }
-            else if (m_frameSender != null)
+            else if ((m_frameSender != null) && m_frameSender.Valid)
             {
                 // By default aspect is resolution aspect. We need to undo the effect of the subregion on this to get the whole image aspect.
                 cameraAspect = m_camera.aspect * (m_frameSender.subRegion.height / m_frameSender.subRegion.width);
             }
 
             // Clip to correct subregion and calculate projection matrix
-            if (m_frameSender != null)
+            if ((m_frameSender != null) && m_frameSender.Valid)
             {
                 Rect subRegion = m_frameSender.subRegion;
 
@@ -707,14 +712,12 @@ public class DisguiseCameraCapture : MonoBehaviour
             }
         }
 
-        if ((Time.frameCount % 100) == 0)
+        if (PrintDebugInformation && ((Time.frameCount % 100) == 1))
         {
             // Debug output every now and then
-            if (m_newFrameData || _dbgOutsideTransformChange)
-            {
-                Debug.Log($"dCameraCapture({gameObject.name}): newFrameData={m_newFrameData}, _dbgOutsideTransform={_dbgOutsideTransformChange}, pos={transform.localPosition}, rot={transform.localEulerAngles}");
-                _dbgOutsideTransformChange = false;
-            }
+            Debug.Log($"dCameraCapture({gameObject.name}): camData={_dbgRxCameraData}, frameData={_dbgRxFrameData}, lPos={transform.localPosition}, lRot={transform.localEulerAngles}, pos={transform.position}, gRot={transform.eulerAngles}");
+            _dbgRxFrameData = false;
+            _dbgRxCameraData = false;
         }
     }
 
@@ -757,7 +760,7 @@ public class DisguiseCameraCapture : MonoBehaviour
     {
         if (m_newFrameData)
         {
-            if (m_frameSender != null)
+            if ((m_frameSender != null) && m_frameSender.Valid)
                 m_frameSender.SendFrame(DisguiseRenderStream.frameData, m_cameraData);
             m_newFrameData = false;
         }
@@ -2069,53 +2072,71 @@ namespace Disguise.RenderStream
         }
 
         private FrameSender() { }
+
         public FrameSender(string name, Camera cam)
         {
             m_name = name;
-            Cam = cam;
+            Cam    = cam;
 
-            Debug.Log(string.Format("Creating stream {0}", m_name));
+            Debug.Log($"Creating stream {m_name}");
             StreamDescription stream = Array.Find(DisguiseRenderStream.streams, s => s.name == name);
-            Debug.Log(string.Format("  Channel {0} at {1}x{2}@{3}", stream.channel, stream.width, stream.height, stream.format));
 
-            m_lastFrameCount = -1;
-            m_streamHandle = stream.handle;
-            m_width  = (int)stream.width;
-            m_height = (int)stream.height;
-
-            m_frameRegion = new Rect(stream.clipping.left, stream.clipping.top, stream.clipping.right - stream.clipping.left, stream.clipping.bottom - stream.clipping.top);
-
-            RenderTextureDescriptor desc = new RenderTextureDescriptor(m_width, m_height, PluginEntry.ToRenderTextureFormat(stream.format), 24);
-            m_sourceTex = new RenderTexture(desc)
+            if (!String.IsNullOrEmpty(stream.channel))
             {
-                name = m_name + " Texture"
-            };
-            Cam.targetTexture = m_sourceTex;
-            m_convertedTex = new Texture2D(m_sourceTex.width, m_sourceTex.height, PluginEntry.ToTextureFormat(stream.format), false, false);
+                Debug.Log($"  Channel {stream.channel} at {stream.width}x{stream.height}@{stream.format}");
 
-            Debug.Log(string.Format("Created stream {0} with handle {1}", m_name, m_streamHandle));
+                m_lastFrameCount = -1;
+                m_streamHandle = stream.handle;
+                m_width  = (int)stream.width;
+                m_height = (int)stream.height;
+
+                m_frameRegion = new Rect(stream.clipping.left, stream.clipping.top, stream.clipping.right - stream.clipping.left, stream.clipping.bottom - stream.clipping.top);
+
+                RenderTextureDescriptor desc = new RenderTextureDescriptor(m_width, m_height, PluginEntry.ToRenderTextureFormat(stream.format), 24);
+                m_sourceTex = new RenderTexture(desc)
+                {
+                    name = m_name + " Texture"
+                };
+                Cam.targetTexture = m_sourceTex;
+                m_convertedTex = new Texture2D(m_sourceTex.width, m_sourceTex.height, PluginEntry.ToTextureFormat(stream.format), false, false);
+
+                Debug.Log($"Created stream {m_name} with handle {m_streamHandle} and size {m_width}x{m_height}");
+            }
+            else
+            {
+                Debug.LogWarning($"Could not create stream {m_name}");
+                m_streamHandle = 0;
+
+            }
         }
 
+
+        public bool Valid { get { return m_streamHandle != 0; } }
+
+        
         public bool GetCameraData(ref CameraData cameraData)
         {
-            return PluginEntry.instance.getFrameCamera(m_streamHandle, ref cameraData) == RS_ERROR.RS_ERROR_SUCCESS;
+            return Valid && (PluginEntry.instance.getFrameCamera(m_streamHandle, ref cameraData) == RS_ERROR.RS_ERROR_SUCCESS);
         }
 
         public void SendFrame(Texture2D frame)
         {
+            if (!Valid) return;
             unsafe
             {
-                SenderFrame data = new SenderFrame();
-                data.type = SenderFrameType.RS_FRAMETYPE_DX11_TEXTURE;
-                data.dx11_resource = frame.GetNativeTexturePtr();
+                SenderFrame data = new SenderFrame {
+                    type          = SenderFrameType.RS_FRAMETYPE_DX11_TEXTURE,
+                    dx11_resource = frame.GetNativeTexturePtr()
+                };
                 RS_ERROR error = PluginEntry.instance.sendFrame(m_streamHandle, ref data, ref m_responseData);
                 if (error != RS_ERROR.RS_ERROR_SUCCESS)
-                    Debug.LogError(string.Format("Error sending frame: {0}", error));
+                    Debug.LogError($"Error sending frame: {error}");
             }
         }
 
         public void SendFrame(FrameData frameData, CameraData cameraData)
         {
+            if (!Valid) return;
             if (m_lastFrameCount == Time.frameCount)
                 return;
 
