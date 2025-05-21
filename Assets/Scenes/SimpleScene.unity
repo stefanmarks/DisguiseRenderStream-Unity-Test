@@ -162,6 +162,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 55452886}
+  - component: {fileID: 55452887}
   m_Layer: 0
   m_Name: StereoCamera
   m_TagString: Untagged
@@ -186,6 +187,22 @@ Transform:
   - {fileID: 1499865765}
   m_Father: {fileID: 1417562852}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &55452887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55452885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aaec203fd21f2e4db4de73dfc19576e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefix: /tracker2
+  PoseType: 0
+  UpdateType: 0
+  ApplyTrackedState: 0
 --- !u!1 &151806453
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,7 +586,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 59.856358
+  field of view: 66.12404
   orthographic: 0
   orthographic size: 5
   m_Depth: -10
@@ -2711,7 +2728,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 59.724075
+  field of view: 65.977905
   orthographic: 0
   orthographic size: 5
   m_Depth: -11
