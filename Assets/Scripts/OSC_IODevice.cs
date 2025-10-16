@@ -12,9 +12,16 @@ public class OSC_IODevice : MonoBehaviour, IOSCVariableContainer
 		public UnityEvent<bool> OnInputActive;
 	}
 
-	public string Prefix = "/tracked_device";
+	[System.Serializable]
+	public struct Output
+	{
+		public string OSC_Name;
+	}
+
+	public string Prefix = "/io_device";
 
 	public List<InputToEventMap> Inputs;
+	public List<Output>          Outputs;
 
 
 	protected void Initialise()
@@ -29,6 +36,24 @@ public class OSC_IODevice : MonoBehaviour, IOSCVariableContainer
 				oscVar.OnDataReceived += var => { OnUpdate(var, input.OnInputActive); };
 				m_inputs.Add(oscVar);
 			}
+		}
+
+		if (m_outputs == null)
+		{
+			m_outputs = new List<OSC_BoolVariable>();
+
+			foreach (var output in Outputs)
+			{
+				OSC_BoolVariable oscVar = new OSC_BoolVariable(Prefix + "/" + output.OSC_Name);
+				m_outputs.Add(oscVar);
+			}
+		}
+
+		if (m_allVars == null)
+		{
+			m_allVars = new List<OSC_Variable>();
+			m_allVars.AddRange(m_inputs);
+			m_allVars.AddRange(m_outputs);
 		}
 	}
 
@@ -54,9 +79,24 @@ public class OSC_IODevice : MonoBehaviour, IOSCVariableContainer
 	public List<OSC_Variable> GetOSC_Variables()
 	{
 		Initialise();
-		return new List<OSC_Variable>(m_inputs);
+		return m_allVars;
 	}
 
 
-	protected List<OSC_BoolVariable> m_inputs = null;
+	public void SetOutput1(bool value)
+	{
+		if (m_outputs != null)
+		{
+			if (m_outputs.Count > 0)
+			{
+				m_outputs[0].Value = value;
+				m_outputs[0].SendUpdate();
+			}
+		}
+	}
+
+
+	protected List<OSC_BoolVariable> m_inputs  = null;
+	protected List<OSC_BoolVariable> m_outputs = null;
+	protected List<OSC_Variable>     m_allVars = null;
 }
