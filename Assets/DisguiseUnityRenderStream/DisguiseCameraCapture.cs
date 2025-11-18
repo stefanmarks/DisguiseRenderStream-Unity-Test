@@ -1842,7 +1842,9 @@ namespace Disguise.RenderStream
             get
             {
                 UnityEngine.Rendering.GraphicsDeviceType gapi = UnityEngine.SystemInfo.graphicsDeviceType;
-                return functionsLoaded && (gapi == UnityEngine.Rendering.GraphicsDeviceType.Direct3D11);
+                return functionsLoaded && 
+                       ( (gapi == UnityEngine.Rendering.GraphicsDeviceType.Direct3D11) ||
+                         (gapi == UnityEngine.Rendering.GraphicsDeviceType.Direct3D12) );
             }
         }
 #else
@@ -1999,11 +2001,11 @@ namespace Disguise.RenderStream
             {
                 if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.Direct3D12)
                 {
-                    Debug.Log("Using DirectX 12");
+                    Debug.Log("DirectX 12 available");
                 }
-                else
+                //else
                 {
-                    Debug.Log("Not using DirectX 12");
+                    Debug.Log("Using DirectX 11");
                     Texture2D texture = new Texture2D(1, 1);
                     error = m_initialiseGpGpuWithDX11Resource(texture.GetNativeTexturePtr());
                     if (error != RS_ERROR.RS_ERROR_SUCCESS)
@@ -2106,7 +2108,6 @@ namespace Disguise.RenderStream
             {
                 Debug.LogWarning($"Could not create stream {m_name}");
                 m_streamHandle = 0;
-
             }
         }
 
