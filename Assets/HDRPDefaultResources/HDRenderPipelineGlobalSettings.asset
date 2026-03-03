@@ -197,28 +197,10 @@ MonoBehaviour:
       - rid: 8626546444566265856
       - rid: 8626546444566265857
       - rid: 8626546444566265858
+      - rid: 1995855014998310912
+      - rid: 1995855014998310913
     m_RuntimeSettings:
-      m_List:
-      - rid: 6278281978059161600
-      - rid: 6278281978059161601
-      - rid: 6278281978059161606
-      - rid: 6278281978059161607
-      - rid: 6278281978059161608
-      - rid: 6278281978059161610
-      - rid: 6278281978059161612
-      - rid: 6278281978059161613
-      - rid: 6278281978059161614
-      - rid: 6278281978059161615
-      - rid: 6278281978059161617
-      - rid: 6278281978059161618
-      - rid: 6278281978059161619
-      - rid: 6278281978059161620
-      - rid: 6278281978059161621
-      - rid: 6278281978059161624
-      - rid: 6278281978059161629
-      - rid: 6278281978059161632
-      - rid: 8626546444566265857
-      - rid: 8626546444566265858
+      m_List: []
   renderingLayerNames:
   - Light LayerDefault
   - InteriorOnly
@@ -263,6 +245,23 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 1995855014998310912
+      type: {class: RayTracingRenderPipelineResources, ns: UnityEngine.Rendering.UnifiedRayTracing, asm: Unity.UnifiedRayTracing.Runtime}
+      data:
+        m_Version: 1
+        m_GeometryPoolKernels: {fileID: 7200000, guid: 98e3d58cae7210c4786f67f504c9e899, type: 3}
+        m_CopyBuffer: {fileID: 7200000, guid: 1b95b5dcf48d1914c9e1e7405c7660e3, type: 3}
+        m_CopyPositions: {fileID: 7200000, guid: 1ad53a96b58d3c3488dde4f14db1aaeb, type: 3}
+        m_BitHistogram: {fileID: 7200000, guid: 8670f7ce4b60cef43bed36148aa1b0a2, type: 3}
+        m_BlockReducePart: {fileID: 7200000, guid: 4e034cc8ea2635c4e9f063e5ddc7ea7a, type: 3}
+        m_BlockScan: {fileID: 7200000, guid: 4d6d5de35fa45ef4a92119397a045cc9, type: 3}
+        m_BuildHlbvh: {fileID: 7200000, guid: 2d70cd6be91bd7843a39a54b51c15b13, type: 3}
+        m_RestructureBvh: {fileID: 7200000, guid: 56641cb88dcb31a4398a4997ef7a7a8c, type: 3}
+        m_Scatter: {fileID: 7200000, guid: a2eaeefdac4637a44b734e85b7be9186, type: 3}
+    - rid: 1995855014998310913
+      type: {class: ColorCheckerResources, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_ColorCheckerMaterial: {fileID: 2100000, guid: 7a1044256d39dba4aa777255550527bf, type: 2}
     - rid: 6061343323368980553
       type: {class: HDRenderPipelineEditorTextures, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
       data:
@@ -565,7 +564,7 @@ MonoBehaviour:
         m_Camera:
           bitDatas:
             data1: 140666621263709
-            data2: 4575659397883068440
+            data2: 18410717471418843160
           lodBias: 1
           lodBiasMode: 0
           lodBiasQualityLevel: 0
