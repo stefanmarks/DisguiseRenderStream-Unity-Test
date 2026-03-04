@@ -1,0 +1,23 @@
+{
+  "name": "nz.ac.aut.sentiencelab",
+  "displayName": "SentienceLab Unity Framework",
+  "version": "1.8.0",
+  "unity": "6000.0",
+  "description": "A collection of useful components and assets for XR Unity Development",
+  "keywords": [
+    "ar",
+    "vr",
+    "xr"
+  ],
+  "author": {
+    "name": "SentienceLab",
+    "email": "stefan.marks.ac@gmail.com",
+    "url": "http://stefanmarks.info"
+  },
+  "dependencies": {
+    "com.unity.inputsystem": "1.11.0",
+    "com.unity.ugui": "2.0.0",
+    "com.unity.xr.management": "4.5.0"
+  },
+  "type": "library"
+}
